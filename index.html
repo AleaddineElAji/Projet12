@@ -17,47 +17,49 @@
 </head>
 
 <body>
-
+<!-- 
   <div id="block1" class="container blockAl">
     <h1>Mes Anniversaires</h1>
     <input class="form-control" type="text" placeholder="Recherchez une personne">
-  </div>
+  </div> -->
 
   <div id="block2" class="container blockAl">
-    <div id="app">
-      <p> nom: {{nom}}</p>
-      <p> date: {{date}}</p>
-      <p> image: {{image}}</p>
-      <p> prefs: {{prefs}}</p>
+    <div id="app-2">
+      <p>{{ nom }}</p>
+      <p>{{ date }}</p>
+      <p>{{ image }}</p>
+      <p>{{ prefs }}</p>
+      <input v-model="nom" type="text">
+      <input v-model="date" type="text">
+      <input v-model="image" type="text">
+      <button v-on:click="getData()">submit</button>
     </div>
   </div>
 
-  <div id="block3" class="container blockAl">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btnAl0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      AJOUTEZ UN ANNIVERSAIRE
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <label for="nom">Nom<input type="text" name="nom" class="form-control" placeholder="Saisissez un nom"></label>
-            <label for="date">Date de naissance<input type="text" name="date" class="form-control" placeholder="Saisissez une date de naissance"></label>
-            <label for="image">Image<input type="text" name="image" class="form-control" placeholder="Saisissez une url d'image"></label> 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btnAl1 btModal">Ajouter</button>
-            <button type="button" class="btn btnAl2 btModal" data-bs-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ <!-- <div id="block3" class="container blockAl">
+   <button type="button" class="btn btnAl0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     AJOUTEZ UN ANNIVERSAIRE
+   </button>
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           <label for="nom">Nom<input type="text" name="nom" class="form-control" placeholder="Saisissez un nom"></label>
+           <label for="date">Date de naissance<input type="text" name="date" class="form-control" placeholder="Saisissez une date de naissance"></label>
+           <label for="image">Image<input type="text" name="image" class="form-control" placeholder="Saisissez une url d'image"></label> 
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btnAl1 btModal">Ajouter</button>
+           <button type="button" class="btn btnAl2 btModal" data-bs-dismiss="modal">Fermer</button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div> -->
   <script src="script.js"></script>
 </body>
 
