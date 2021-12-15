@@ -8,6 +8,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+
   <title>Document</title>
 </head>
 
@@ -16,15 +18,28 @@
   <div id="app">
     <div v-for="(cat, n) in cats">
       <p>
-        <span class="cat">{{ cat.nom }} {{ cat.date }}<img v-bind:src="cat.image" alt="image"></span>
+        <span class="cat"><img v-bind:id="n" v-bind:src="cat.image" alt="image" height="50px">{{ cat.nom }} {{ cat.date }}</span>
         <button @click="removeCat(n)">Enlever</button>
       </p>
     </div>
-    <p>
+    <p> 
       <input v-model="newName" placeholder="Entrez le nom de l'individu">
-      <input v-model="newDate" placeholder="Entrez la date d'anniversaire de l'individu">
+      <input type="date" v-model="newDate" placeholder="Entrez la date d'anniversaire de l'individu">
       <input v-model="newImg" placeholder="Entrez l'url d'une image de l'individu">
       <button type="submit" @click="addCat">Ajouter un anniversaire</button>
+    </p>
+  </div>
+
+  <div id="app2">
+    <div v-for="(cad, n) in cadeau">
+      <p>
+        <span class="cad">{{ cad.cadeau }}</span>
+        <button @click="removeCadeau(n)">Enlever</button>
+      </p>
+    </div>
+    <p>
+      <input v-model="newCadeau" placeholder="Entrez le cadeau de l'individu">
+      <button type="submit" @click="addCadeau">Ajouter un cadeau</button>
     </p>
   </div>
 
@@ -35,12 +50,14 @@
         cats: [],
         newName: null,
         newDate: null,
-        newImg: null
+        newImg: null,
+        poniteur: 0
       },
       mounted() {
         if (localStorage.getItem('cats')) {
           try {
             this.cats = JSON.parse(localStorage.getItem('cats'));
+            this.poniteur = this.cats.length;
           } catch (e) {
             localStorage.removeItem('cats');
           }
@@ -52,12 +69,11 @@
           if (!this.newName && !this.newDate && !this.newImg) {
             return;
           }
-
-          //this.cats.push(this.newName,this.newDate,this.newImg);
           this.cats.push({
             nom: this.newName,
             date: this.newDate,
-            image: this.newImg
+            image: this.newImg,
+            cont: this.poniteur++,
           });
           this.newName = '';
           this.newDate = '';
@@ -74,6 +90,44 @@
         }
       }
     })
+
+   const app2 = new Vue({
+     el: '#app2',
+     data: {
+       cadeau: [],
+       newCadeau: null,
+     },
+     mounted() {
+       if (localStorage.getItem('cadeau')) {
+         try {
+           this.cadeau = JSON.parse(localStorage.getItem('cadeau'));
+         } catch (e) {
+           localStorage.removeItem('cadeau');
+         }
+       }
+     },
+     methods: {
+       addCadeau() {
+         // s'assurer que l'utilisateur a entré quelque chose
+         if (!this.newCadeau) {
+           return;
+         }
+         this.cadeau.push({
+           cadeau: this.newCadeau,
+         });
+         this.newCadeau = '';
+         this.saveCadeau();
+       },
+       removeCadeau(x) {
+         this.cadeau.splice(x, 1);
+         this.saveCadeau();
+       },
+       saveCadeau() {
+         const parsed = JSON.stringify(this.cadeau);
+         localStorage.setItem('cadeau', parsed);
+       }
+     }
+   })
   </script>
 </body>
 
