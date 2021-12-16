@@ -20,28 +20,21 @@
   <div id="app">
     <div v-for="(cat, n) in cats">
       <p>
-        <span class="cat"><img v-bind:id="n" v-bind:src="cat.image" alt="image" height="50px">{{ cat.nom }}{{ cat.cont }}
+        <!-- <span class="cat"><img v-bind:id="n" v-bind:src="cat.image" alt="image" height="50px">{{ /cat./nom }}{{ /cat./cont }} -->
+        <span class="cat"><img src="https://via.placeholder.com/150" alt="image" height="50px">{{ cat.nom }}{{ cat.cont }}
           {{ cat.date }} </span>
-        <button @click="removeCat(n)">Enlever</button>
+        <button @click="removeCat(cat.cont)">Enlever l'individu</button>
+        <input v-model="newCadeau" placeholder="Entrez le cadeau de l'individu">
+        <button type="submit" @click="addCadeau(cat.cont)">Ajouter un cadeau</button>
+        <button @click="removeCadeau(n)">Enlever</button>
       </p>
     </div>
     <p>
       <input v-model="newName" placeholder="Entrez le nom de l'individu">
       <input type="date" v-model="newDate" placeholder="Entrez la date d'anniversaire de l'individu">
       <input v-model="newImg" placeholder="Entrez l'url d'une image de l'individu">
-      <button type="submit" @click="addCat">Ajouter un anniversaire</button>
-    </p>
-  </div>
-  <div id="app2">
-    <div v-for="(cad, n) in cadeau">
-      <p>
-        <span class="cad">{{ cad.cadeau }} </span>
-        <button @click="removeCadeau(n)">Enlever</button>
-      </p>
-    </div>
-    <p>
-      <input v-model="newCadeau" placeholder="Entrez le cadeau de l'individu">
-      <button type="submit" @click="addCadeau()">Ajouter un cadeau</button>
+      <button @click="addCat">Ajouter un anniversaire</button>
+
     </p>
   </div>
 
@@ -53,16 +46,15 @@
         newName: null,
         newDate: null,
         newImg: null,
-        poniteur: 0
+        poniteur: 0,
+        cadeau: [],
+        newCadeau: null,
       },
       mounted() {
         if (localStorage.getItem('cats')) {
           try {
             this.cats = JSON.parse(localStorage.getItem('cats'));
-            //this.poniteur = this.cats.length;
-            //this.poniteur = Math.max(...this.cats);
             this.poniteur = (this.cats.sort(function(a,b){return b.cont - a.cont}).slice(0,1)[0].cont)+1;
-            //console.log(this.cats.sort(function(a,b){return b.cont - a.cont}).slice(0,1)[0].cont)
           } catch (e) {
             localStorage.removeItem('cats');
           }
@@ -85,53 +77,33 @@
           this.newImg = '';
           this.saveCats();
         },
-        removeCat(x) {
-          this.cats.splice(x, 1);
+        removeCat(x,id) {
+          this.cadeau.splice(id, 1);
+          this.cats.splice(id, 1);
           this.saveCats();
         },
         saveCats() {
           const parsed = JSON.stringify(this.cats);
           localStorage.setItem('cats', parsed);
-        }
-      }
-    })
-
-    const app2 = new Vue({
-      el: '#app2',
-      data: {
-        cadeau: [],
-        newCadeau: null,
-      },
-      mounted() {
-        if (localStorage.getItem('cadeau')) {
-          try {
-            this.cadeau = JSON.parse(localStorage.getItem('cadeau'));
-          } catch (e) {
-            localStorage.removeItem('cadeau');
-          }
-        }
-      },
-      methods: {
+        },
         addCadeau(id) {
           // s'assurer que l'utilisateur a entré quelque chose
           if (!this.newCadeau) {
             return;
           }
           this.cadeau.push({
-            cadeau: this.newCadeau,
+            nomCadeau: this.newCadeau,
             id: id,
           });
+
+          this.cats[id].cadeau = this.cadeau ;
           this.newCadeau = '';
-          this.saveCadeau();
+          this.saveCats();
         },
         removeCadeau(x) {
           this.cadeau.splice(x, 1);
-          this.saveCadeau();
+          this.saveCats();
         },
-        saveCadeau() {
-          const parsed = JSON.stringify(this.cadeau);
-          localStorage.setItem('cadeau', parsed);
-        }
       }
     })
   </script>
