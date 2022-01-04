@@ -17,15 +17,21 @@
 
 <body>
 
+  <div id="head">
+    <h1 id="title">Mes Anniversaires</h1>
+    <input id="inputSearch" type="text" placeholder="Rechercher une personne">    
+  </div>
+
+  
   <div id="app">
     <div v-for="(cat, n) in cats">
       <p>
         <!-- <span class="cat"><img v-bind:id="n" v-bind:src="cat.image" alt="image" height="50px">{{ /cat./nom }}{{ /cat./cont }} -->
         <span class="cat"><img src="https://via.placeholder.com/150" alt="image" height="50px">{{ cat.nom }}{{ cat.cont }}
-          {{ cat.date }} </span>
+          {{ cat.date }}  l'anniversaire est dans {{ cat.intervalle }} jours  </span>
         <button @click="removeCat(cat.cont)">Enlever l'individu</button>
         <input v-model="newCadeau" placeholder="Entrez le cadeau de l'individu">
-        <button type="submit" @click="addCadeau(cat.cont)">Ajouter un cadeau</button>
+        <button type="submit" @click="addCadeau(n)">Ajouter un cadeau</button>
         <button @click="removeCadeau(n)">Enlever</button>
       </p>
     </div>
@@ -36,6 +42,10 @@
       <button @click="addCat">Ajouter un anniversaire</button>
 
     </p>
+  </div>
+
+  <div id="test">
+    
   </div>
 
   <script>
@@ -49,6 +59,7 @@
         poniteur: 0,
         cadeau: [],
         newCadeau: null,
+        inter: null,
       },
       mounted() {
         if (localStorage.getItem('cats')) {
@@ -66,19 +77,21 @@
           if (!this.newName && !this.newDate && !this.newImg) {
             return;
           }
+
           this.cats.push({
-            nom: this.newName,
-            date: this.newDate,
-            image: this.newImg,
-            cont: this.poniteur++,
+           "intervalle": age(this.newDate),
+           "nom": this.newName,
+           "date": this.newDate,
+           "image": this.newImg,
+           "cont": this.poniteur++,
           });
+          this.inter = '';
           this.newName = '';
           this.newDate = '';
           this.newImg = '';
           this.saveCats();
         },
         removeCat(x,id) {
-          this.cadeau.splice(id, 1);
           this.cats.splice(id, 1);
           this.saveCats();
         },
@@ -91,12 +104,16 @@
           if (!this.newCadeau) {
             return;
           }
+          this.cadeau = [];
           this.cadeau.push({
-            nomCadeau: this.newCadeau,
-            id: id,
+            "nomCadeau": this.newCadeau,
           });
 
-          this.cats[id].cadeau = this.cadeau ;
+         if (this.cats[id].cadeau !==undefined) {
+           this.cats[id].cadeau.push(this.cadeau);
+         }else{
+           this.cats[id].cadeau = [this.cadeau];           
+         }
           this.newCadeau = '';
           this.saveCats();
         },
@@ -106,7 +123,114 @@
         },
       }
     })
+
+
+    function age(aniversaire){
+      let ladate = new Date();
+      let date = ladate.getDate();
+      let month = ladate.getMonth();
+      let year = ladate.getFullYear();
+    
+      let ladateAnniv = new Date(aniversaire);
+      let dateAnniv = ladateAnniv.getDate();
+      let monthAnniv = ladateAnniv.getMonth();
+      let yearAnniv = ladateAnniv.getFullYear();
+ 
+      var intervalle = ladateAnniv.getTime() - ladate.getTime();
+      intervalle = Math.floor(intervalle / (1000 * 60 * 60 * 24));
+      document.getElementById("test").innerHTML = intervalle 
+      return intervalle;
+    }
   </script>
+
+  <style>
+    #head{
+      display:flex;
+      justify-content:center; 
+      align-items: center;
+      flex-direction: column;
+    } 
+    
+    #head input{
+      width: 60%;
+      border-radius: 20px;
+      border: 1px solid black;
+    }
+
+    #head input::placeholder{
+      display: flex;
+      justify-content: center;
+    }
+
+ .overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+
+ .overlayR {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: black;
+ }
+
+ .overlay-content {
+     position: relative;
+     top: 25%;
+     width: 100%;
+     text-align: center;
+     margin-top: 30px;
+
+ }
+
+ a {
+     padding: 8px;
+     text-decoration: none;
+     font-size: 36px;
+     color: #818181;
+     display: block;
+     transition: 0.3s;
+ }
+
+ .overlay a:hover,
+ .overlay a:focus {
+     color: #f1f1f1;
+ }
+
+ .overlay .closebtn {
+     position: absolute;
+     top: 20px;
+     right: 45px;
+     font-size: 60px;
+ }
+
+ @media screen and (max-height: 450px) {
+     .overlay a {
+         font-size: 20px
+     }
+
+     .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+     }
+ }
+  </style>
 </body>
 
 </html>
