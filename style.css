@@ -1,72 +1,200 @@
-    /* #title{
-       display:flex;
-       justify-content:center; 
-    }  
-  .overlay {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: rgb(0, 0, 0);
-      background-color: rgba(0, 0, 0, 0.9);
-      overflow-x: hidden;
-      transition: 0.5s;
-  }
+#contenant{
+    max-width:600px;
+    margin: auto;
+}
 
-  .overlayR {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      background-color: rgb(0, 0, 0);
-      background-color: rgb(255, 255, 255);
-      overflow-x: hidden;
-      transition: 0.5s;
-      color: black;
-  }
 
-  .overlay-content {
-      position: relative;
-      top: 25%;
-      width: 100%;
-      text-align: center;
-      margin-top: 30px;
+#head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100vw;
+}
 
-  }
+#inputSearch{
+    border: none;
+}
 
-  a {
-      padding: 8px;
-      text-decoration: none;
-      font-size: 36px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-  }
+#title {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-  .overlay a:hover,
-  .overlay a:focus {
-      color: #f1f1f1;
-  }
+input {
+    width: 80%;
+    border-radius: 20px;
+    border: 1px solid black;
+    margin-bottom: 2rem;
+    height: 2.5rem;
+    background-color: rgba(216, 216, 216, 0.247);
+    padding: 1rem;
+}
 
-  .overlay .closebtn {
-      position: absolute;
-      top: 20px;
-      right: 45px;
-      font-size: 60px;
-  }
+.blockMan {
+    display:flex;
+    justify-content: center;
+}
 
-  @media screen and (max-height: 450px) {
-      .overlay a {
-          font-size: 20px
-      }
+section{
+    padding: 0.9rem 0;
+}
 
-      .overlay .closebtn {
-          font-size: 40px;
-          top: 15px;
-          right: 35px;
-      }
-  } */
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlayR {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: black;
+}
+
+.overlay-content {
+    position: relative;
+    top: 15%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+    .overlay a {
+        font-size: 20px
+    }
+
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+.intervalle {
+    display: flex;
+    align-items: center;
+    font-size:0.75rem;
+    color: grey;
+    font-weight: 100;
+}
+
+.date {
+    align-items: center;
+    font-size: 12px;
+    font-weight: 550;
+}
+
+.nameMan {
+    color: #42BDE3;
+    font-weight: 600;
+}
+
+hr{
+    width: 60%;
+    margin: auto;
+    transform: translateY(10%);
+}
+
+.overlayMenu {
+    height: 70%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(236, 236, 236);
+    overflow-x: hidden;
+    transform: translateY(10%);
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.overlay-contentMenu {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    z-index: 10;
+}
+
+.opaAL{
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+}
+
+.maxiCheat{
+    overflow: hidden;
+}
+
+#addFriend{
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#addBirth{
+    border-radius: 5rem;
+    width: 80%;
+    padding:0.5rem;
+}
+
+button{
+    background-color: #42BDE3;
+    color: white;
+    border: none;
+}
+
+#closeOv{
+    color:#42BDE3;
+    font-size:1.25rem;
+}
+
+#pictoAddMan{
+    margin-right: 1rem;
+}
+
+#addKdo{
+    bottom:0;
+}
